@@ -4,12 +4,6 @@ Um mini game interativo desenvolvido com HTML, CSS e JavaScript puro, focado em 
 
 ---
 
-## 🚀 Demonstração
-
-👉 (adicione aqui o link do seu deploy)
-
----
-
 ## 🎮 Funcionalidades
 
 - 🎯 Clique na bolinha para marcar pontos
