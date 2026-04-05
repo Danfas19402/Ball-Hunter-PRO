@@ -1,0 +1,80 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    color: white;
+    text-align: center;
+}
+
+header {
+    margin-top: 20px;
+}
+
+.controls {
+    margin: 15px;
+}
+
+input, select, button {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    border: none;
+}
+
+button {
+    background: #00e5ff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.hud {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.container {
+    position: relative;
+    width: 90%;
+    height: 60vh;
+    margin: 20px auto;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.05);
+    overflow: hidden;
+}
+
+/* Bolinha */
+.ball {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ff512f, #dd2476);
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.2s;
+}
+
+.ball:hover {
+    box-shadow: 0 0 20px #ff4b2b;
+}
+
+.ball:active {
+    transform: scale(0.75);
+}
+
+/* Ranking */
+ol {
+    max-width: 350px;
+    margin: auto;
+    text-align: left;
+}
+
+p{
+    margin-right: 20px;
+}
