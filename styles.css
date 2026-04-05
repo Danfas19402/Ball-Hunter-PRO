@@ -31,6 +31,17 @@ button {
     cursor: pointer;
 }
 
+#resetBtn {
+    background: #ff4d4d;
+    color: white;
+}
+
+#clearRankingBtn {
+    background: #ffa500;
+    color: black;
+    margin-bottom: 10px;
+}
+
 .hud {
     display: flex;
     justify-content: center;
