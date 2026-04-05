@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ball Hunter PRO+</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>🎯 Ball Hunter PRO+</h1>
+  </header>
+
+  <section class="controls">
+    <input type="text" id="playerName" placeholder="Seu nome">
+    
+    <select id="difficulty">
+      <option value="1200">Fácil</option>
+      <option value="800" selected>Médio</option>
+      <option value="500">Difícil</option>
+    </select>
+
+    <button id="startBtn">Iniciar</button>
+  </section>
+
+  <section class="hud">
+    <span id="score">Pontuação: 0</span>
+    <span id="time">Tempo: 30s</span>
+    <span id="lives">Vidas: ❤️❤️❤️</span>
+  </section>
+
+  <main class="container">
+    <div id="ball" class="ball"></div>
+  </main>
+
+  <section>
+    <h2>🏆 Ranking</h2>
+    <ol id="ranking"></ol>
+  </section>
+
+  <!-- Sons -->
+  <audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-game-click-1114.mp3"></audio>
+  <audio id="missSound" src="https://assets.mixkit.co/sfx/preview/mixkit-losing-piano-2024.mp3"></audio>
+
+<p>Desenvolvido por: @Fealsi Programação</p>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
