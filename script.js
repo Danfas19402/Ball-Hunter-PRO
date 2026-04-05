@@ -1,4 +1,4 @@
-/ ================== ESTADO ==================
+// ================== ESTADO ==================
 let state = {
     score: 0,
     time: 30,
@@ -7,12 +7,16 @@ let state = {
     running: false
 };
 
+let intervals = [];
+
 // ================== ELEMENTOS ==================
 const ball = document.getElementById("ball");
 const scoreDisplay = document.getElementById("score");
 const timeDisplay = document.getElementById("time");
 const livesDisplay = document.getElementById("lives");
 const startBtn = document.getElementById("startBtn");
+const resetBtn = document.getElementById("resetBtn");
+const clearRankingBtn = document.getElementById("clearRankingBtn");
 const rankingList = document.getElementById("ranking");
 
 const playerNameInput = document.getElementById("playerName");
@@ -21,9 +25,12 @@ const difficultySelect = document.getElementById("difficulty");
 const clickSound = document.getElementById("clickSound");
 const missSound = document.getElementById("missSound");
 
-// ================== INICIAR ==================
+// ================== EVENTOS ==================
 startBtn.addEventListener("click", startGame);
+resetBtn.addEventListener("click", resetGame);
+clearRankingBtn.addEventListener("click", clearRanking);
 
+// ================== INICIAR ==================
 function startGame() {
     const name = playerNameInput.value.trim();
 
@@ -32,13 +39,10 @@ function startGame() {
         return;
     }
 
-    state.score = 0;
-    state.time = 30;
-    state.lives = 3;
-    state.speed = parseInt(difficultySelect.value);
-    state.running = true;
+    resetGame();
 
-    updateHUD();
+    state.running = true;
+    state.speed = parseInt(difficultySelect.value);
 
     startBtn.disabled = true;
 
@@ -49,31 +53,33 @@ function startGame() {
 // ================== TIMER ==================
 function startTimer(name) {
     const timer = setInterval(() => {
-        if (!state.running) return clearInterval(timer);
+        if (!state.running) return;
 
         state.time--;
         updateHUD();
 
         if (state.time <= 0 || state.lives <= 0) {
             endGame(name);
-            clearInterval(timer);
         }
     }, 1000);
+
+    intervals.push(timer);
 }
 
 // ================== MOVIMENTO ==================
 function startMovement() {
     const mover = setInterval(() => {
-        if (!state.running) return clearInterval(mover);
+        if (!state.running) return;
 
         moveBall();
 
-        // dificuldade progressiva
         if (state.speed > 300) {
             state.speed -= 10;
         }
 
     }, state.speed);
+
+    intervals.push(mover);
 }
 
 // ================== MOVER ==================
@@ -103,7 +109,7 @@ ball.addEventListener("click", () => {
     moveBall();
 });
 
-// ================== MISS (ERRO) ==================
+// ================== MISS ==================
 document.querySelector(".container").addEventListener("click", (e) => {
     if (e.target !== ball && state.running) {
         state.lives--;
@@ -113,6 +119,38 @@ document.querySelector(".container").addEventListener("click", (e) => {
         missSound.play();
     }
 });
+
+// ================== RESET ==================
+function resetGame() {
+    state.running = false;
+
+    state.score = 0;
+    state.time = 30;
+    state.lives = 3;
+
+    updateHUD();
+
+    startBtn.disabled = false;
+
+    clearIntervals();
+    moveBall();
+}
+
+// ================== LIMPAR INTERVALOS ==================
+function clearIntervals() {
+    intervals.forEach(i => clearInterval(i));
+    intervals = [];
+}
+
+// ================== LIMPAR RANKING ==================
+function clearRanking() {
+    const confirmClear = confirm("Tem certeza que deseja apagar o ranking?");
+
+    if (confirmClear) {
+        localStorage.removeItem("ranking");
+        renderRanking();
+    }
+}
 
 // ================== HUD ==================
 function updateHUD() {
@@ -125,6 +163,8 @@ function updateHUD() {
 function endGame(name) {
     state.running = false;
     startBtn.disabled = false;
+
+    clearIntervals();
 
     saveScore(name, state.score);
     alert(`Fim de jogo, ${name}! Pontuação: ${state.score}`);
